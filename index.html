@@ -56,17 +56,7 @@ document.getElementById('go').onclick=function(){
  if(tops.length===1){var t=T[tops[0]];
   h+='<div class="card" style="margin-top:12px"><span class="tag">いちばん出やすいタイプ</span><p class="name">'+t.n+'</p><img src="'+t.img+'" alt=""><p class="one">'+t.one+'</p><div class="box"><b>強み</b>'+t.s+'</div><div class="box"><b>気をつけること</b>'+t.w+'</div><div class="box g"><b>今日、試してみること</b>'+t.h+'</div></div>';
  }else{
-  h+='<div class="card" style="margin-top:12px"><span class="tag">あなたのタイプ</span><p class="name">ミックスタイプ</p><p class="mixsub">'+tops.map(function(k){return L[k]}).join(' × ')+'</p><div class="mix">'+tops.map(function(k){return '<img src="'+T[k].img+'" alt="">'}).join('')+'</div><p class="one">'+tops.map(function(k){return L[k]}).join('と')+'が、同じ数でした。<br>相手や場面によって、出方が変わる人です。</p>';
-  tops.forEach(function(k){var t=T[k];h+='<div class="box"><b>'+L[k]+'が出るとき</b>'+t.one+'</div><div class="box g"><b>そのとき、試してみること</b>'+t.h+'</div>'});
-  h+='</div>';
- }
- h+='<div class="cnt">'+['a','n','s'].map(function(k){return '<div class="'+(tops.indexOf(k)>=0?'top':'')+'">'+L[k]+'<b>'+cnt[k]+'</b>'+K[k].length+'問中</div>'}).join('')+'</div>';
- h+='<p class="ws">この3つの数を、ワークシート③「診断の結果」に書いてください。</p><p class="lead" style="margin-top:12px">誰の中にも3つとも入っています。良い・悪いではなく、今の自分の傾向です。</p><button class="sub" id="back" type="button">もう一度やる</button>';
- R.innerHTML=h;R.hidden=false;document.getElementById('form').hidden=true;window.scrollTo(0,0);
- document.getElementById('back').onclick=function(){R.hidden=true;document.getElementById('form').hidden=false;window.scrollTo(0,0)};
-};
-function alert0(){var b=document.getElementById('go');b.textContent='1つ以上タップしてください';setTimeout(function(){b.textContent='結果を見る'},1800)}
-</script></body></html'<p class="one">'+(tops.length===3?'3つとも、':tops.map(function(k){return L[k]}).join('と')+'が、')+'同じ数でした。<br>相手や場面によって、出方が変わる人です。</p>';
+  h+='<div class="card" style="margin-top:12px"><span class="tag">あなたのタイプ</span><p class="name">ミックスタイプ</p><p class="mixsub">'+tops.map(function(k){return L[k]}).join(' × ')+'</p><div class="mix">'+tops.map(function(k){return '<img src="'+T[k].img+'" alt="">'}).join('')+'</div><p class="one">'+(tops.length===3?'3つとも、':tops.map(function(k){return L[k]}).join('と')+'が、')+'同じ数でした。<br>相手や場面によって、出方が変わる人です。</p>';
   tops.forEach(function(k){var t=T[k];h+='<div class="box"><b>'+L[k]+'が出るとき</b>'+t.one+'</div><div class="box g"><b>そのとき、試してみること</b>'+t.h+'</div>'});
   h+='</div>';
  }
