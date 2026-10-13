@@ -33,6 +33,7 @@ button.sub{background:#fff;color:var(--deep);border:3px solid var(--line);font-s
 .cnt div.top{border-color:var(--teal);background:var(--soft)}
 .ws{margin-top:12px;background:#fff;border:3px dashed var(--goldfill);border-radius:16px;padding:10px 14px;font-size:17px}
 .foot{margin-top:18px;font-size:14px;color:var(--ink2);font-weight:500;text-align:center}
+.mixsub{font-size:20px;font-weight:900;color:var(--gold);margin-bottom:6px}.mix{display:flex;justify-content:center;gap:10px}.mix img{height:120px;max-width:31%;object-fit:contain}.one,.name,.lead{text-wrap:balance}.box{text-wrap:pretty}
 [hidden]{display:none!important}
 </style></head><body><main>
 <section id="form"><h1><span>自己主張タイプ診断</span></h1><p class="lead">当てはまるものをタップしてください。直感で大丈夫です。10問、1分で終わります。</p>
@@ -50,10 +51,15 @@ document.getElementById('go').onclick=function(){
  var cnt={},rate={},total=0;for(var k in K){cnt[k]=K[k].reduce(function(x,i){return x+c(i)},0);rate[k]=cnt[k]/K[k].length;total+=cnt[k]}
  var R=document.getElementById('res'),h='';
  if(total===0){alert0();return}
- var mx=Math.max(rate.a,rate.n,rate.s),tops=['a','n','s'].filter(function(k){return rate[k]===mx});
+ var mx=Math.max(cnt.a,cnt.n,cnt.s),tops=['a','n','s'].filter(function(k){return cnt[k]===mx});
  h+='<h1><span>あなたの結果</span></h1>';
- if(tops.length>1)h+='<p class="lead">'+tops.map(function(k){return L[k]}).join('と')+'が同じくらいです。場面によって、出てくるタイプが変わる人です。</p>';
- tops.forEach(function(k){var t=T[k];h+='<div class="card" style="margin-top:12px"><span class="tag">いちばん出やすいタイプ</span><p class="name">'+t.n+'</p><img src="'+t.img+'" alt=""><p class="one">'+t.one+'</p><div class="box"><b>強み</b>'+t.s+'</div><div class="box"><b>気をつけること</b>'+t.w+'</div><div class="box g"><b>今日、試してみること</b>'+t.h+'</div></div>'});
+ if(tops.length===1){var t=T[tops[0]];
+  h+='<div class="card" style="margin-top:12px"><span class="tag">いちばん出やすいタイプ</span><p class="name">'+t.n+'</p><img src="'+t.img+'" alt=""><p class="one">'+t.one+'</p><div class="box"><b>強み</b>'+t.s+'</div><div class="box"><b>気をつけること</b>'+t.w+'</div><div class="box g"><b>今日、試してみること</b>'+t.h+'</div></div>';
+ }else{
+  h+='<div class="card" style="margin-top:12px"><span class="tag">あなたのタイプ</span><p class="name">ミックスタイプ</p><p class="mixsub">'+tops.map(function(k){return L[k]}).join(' × ')+'</p><div class="mix">'+tops.map(function(k){return '<img src="'+T[k].img+'" alt="">'}).join('')+'</div><p class="one">'+tops.map(function(k){return L[k]}).join('と')+'が、同じ数でした。<br>相手や場面によって、出方が変わる人です。</p>';
+  tops.forEach(function(k){var t=T[k];h+='<div class="box"><b>'+L[k]+'が出るとき</b>'+t.one+'</div><div class="box g"><b>そのとき、試してみること</b>'+t.h+'</div>'});
+  h+='</div>';
+ }
  h+='<div class="cnt">'+['a','n','s'].map(function(k){return '<div class="'+(tops.indexOf(k)>=0?'top':'')+'">'+L[k]+'<b>'+cnt[k]+'</b>'+K[k].length+'問中</div>'}).join('')+'</div>';
  h+='<p class="ws">この3つの数を、ワークシート③「診断の結果」に書いてください。</p><p class="lead" style="margin-top:12px">誰の中にも3つとも入っています。良い・悪いではなく、今の自分の傾向です。</p><button class="sub" id="back" type="button">もう一度やる</button>';
  R.innerHTML=h;R.hidden=false;document.getElementById('form').hidden=true;window.scrollTo(0,0);
